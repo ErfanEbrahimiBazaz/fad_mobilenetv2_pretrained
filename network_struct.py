@@ -1,5 +1,4 @@
 from keras.models import Model
-from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
 from keras.layers import Activation, Flatten, Dense, Dropout
 from keras.preprocessing.image import ImageDataGenerator
@@ -65,11 +64,15 @@ model = Model(inputs=base_model.input, outputs=preds)
 for i, layer in enumerate(model.layers):
     print(i, layer.name)
 
+for layer in model.layers[:155]:
+    layer.trainable = False
+
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
               metrics=['accuracy']
               )
 
+print('Training size = {},  batch size = {}'.format(train_generator.n, train_generator.batch_size) )
 step_size_train = train_generator.n // train_generator.batch_size
 print('Step size is {}'.format(step_size_train))
 
@@ -86,7 +89,7 @@ start = time.time()
 history = model.fit_generator(generator=train_generator,
                               steps_per_epoch=step_size_train, # steps_per_epoch = len(X_train)//batch_size,
                               validation_data=validation_generator,
-                              validation_steps=50,
+                              validation_steps=31, # validation_steps = total_validation_samples//validation_batch_size
                               epochs=60,
                               callbacks=callbacks_list,
                               shuffle=True)
@@ -102,7 +105,6 @@ acc = history.history['acc']
 val_acc = history.history['val_acc']
 loss = history.history['loss']
 val_loss = history.history['val_loss']
-# print("--- Code execution for shallow network with only one layer - time is %s seconds ---" % round(time.time() - start_time, 2))
 
 epochs = range(len(acc))
 
