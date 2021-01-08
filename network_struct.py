@@ -76,12 +76,14 @@ print('Training size = {},  batch size = {}'.format(train_generator.n, train_gen
 step_size_train = train_generator.n // train_generator.batch_size
 print('Step size is {}'.format(step_size_train))
 
-filepath = "./myClassifier/mobileNetV2/" + "saved-model_mbNetV2-{epoch:02d}.hdf5"
+# filepath = "./myClassifier/mobileNetV2/" + "saved-model_mbNetV2-{epoch:02d}.hdf5"
+filepath = "C:/Users/E17538/OneDrive - Uniper SE/Desktop/DailyActivities/FAD/ACV_Ses9/fad_mobilenetv2_pretrained/mycls/" \
+           + "saved-model_mbNetV2-{epoch:02d}.hdf5"
 checkpoint = keras.callbacks.ModelCheckpoint(filepath,
                                              verbose=1,
                                              mode='auto',
                                              monitor='accuracy',
-                                             save_best_only=True
+                                             save_best_only=False
                                              )
 callbacks_list = [checkpoint]
 start = time.time()
@@ -96,13 +98,13 @@ history = model.fit_generator(generator=train_generator,
 
 end = time.time()
 print('Processing time:', (end - start) / 60)
-model.save_weights('cnn.h5')
+model.save_weights('mvn.h5')
 
 # binary classifier with 12000 images with 2 added new hidden layers with drop-out layers at layers 1 and 2.
-model.save('bincls_mobileNetV2.h5')
+model.save('bincls_mobileNetV2_run2.h5')
 
-acc = history.history['acc']
-val_acc = history.history['val_acc']
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
 loss = history.history['loss']
 val_loss = history.history['val_loss']
 
