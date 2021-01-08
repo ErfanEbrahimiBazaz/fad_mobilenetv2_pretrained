@@ -8,4 +8,4 @@ Use a mobilenetv2 model, freezing its layers, and putting convolutional layers a
 
 ## Results
 
-![Accuracy of the trained model](.\results\acc.PNG)
+![Accuracy of the trained model](./results/acc.PNG)
