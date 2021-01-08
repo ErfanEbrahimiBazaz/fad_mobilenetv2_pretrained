@@ -2,7 +2,12 @@
 
 ## Objectives
 
-Use a mobilenetv2 model, freezing its layers, and putting convolutional layers at the end of network
+Use a mobilenetv2 model, freezing its layers, and adding layers at the end of network. The resulted network has 157
+layers. Training this network to build a classifier for cats and dogs. Altogether 10000 training images have been used.
+Another 2000 images are taken as validation.
+Using pre-trained models increasingly improve accuracy of the network.
+
+
 
 ## Process
 
